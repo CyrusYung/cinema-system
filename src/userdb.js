@@ -1,5 +1,6 @@
 import fs from 'fs';
 import client from './dbclient.js';
+import bcrypt from 'bcrypt';
 
 async function init_db() {
   try {
@@ -45,10 +46,11 @@ export async function validate_user(username, password) {
     } else {
       const userlogin = client.db('cinemadb').collection('login');
       const result = await userlogin.findOne({
-        $and: [{ username: username }, { password: password }],
+        $and: [{ username: username }],
       });
 
-      if (result != null) {
+      const isMatch = await bcrypt.compare(password, result.password);
+      if (result != null && isMatch) {
         return result;
       } else {
         return false;
@@ -59,7 +61,7 @@ export async function validate_user(username, password) {
   }
 }
 
-export async function update_user(username, password, enabled) {
+export async function update_login(username, password, enabled) {
   try {
     const userlogin = client.db('cinemadb').collection('login');
     const result = await userlogin.updateOne(
@@ -69,10 +71,31 @@ export async function update_user(username, password, enabled) {
     );
     //console.log(result.modifiedCount);
     if (result.modifiedCount == 1) {
-      console.log('Added 0 user');
+      console.log('Added 0 userlogin');
       return true;
     } else if (result.upsertedCount == 1) {
-      console.log('Added 1 user');
+      console.log('Added 1 userlogin');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function update_user(username, obj) {
+  try {
+    const userinfo = client.db('cinemadb').collection('users');
+
+    const result = await userinfo.updateOne({ username: username }, { $set: { obj } }, { upsert: true });
+    /*const result = await userinfo.updateOne(
+      { username: username },
+      { $set: { gender: gender, email: email, birth: birth, nickname: nickname, image: image } },
+      { upsert: true }
+    );*/
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 userinfo');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 userinfo');
     }
   } catch (err) {
     console.log('Unable to update the database!');
@@ -111,7 +134,7 @@ export async function username_exist(username) {
 }
 export async function nickname_exist(nickname) {
   try {
-    var result = await fetch_user(nickname);
+    var result = await fetch_nickname(nickname);
 
     if (result != null) {
       return true;

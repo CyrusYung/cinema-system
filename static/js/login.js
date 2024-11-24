@@ -1,5 +1,17 @@
 $(function () {
+  if (localStorage.getItem('username')) {
+    $('#username').val(localStorage.getItem('username'));
+    document.getElementById('RememberMe').checked = true;
+  }
   $('#loginbtn').on('click', async function () {
+    var remember = document.getElementById('RememberMe');
+
+    console.log(remember.checked);
+    if (remember.checked) {
+      localStorage.setItem('username', $('#username').val());
+    } else {
+      localStorage.removeItem('username');
+    }
     //console.log($('#username').val() == '' || $('#username').val() == '');
     if ($('#username').val() == '' || $('#password').val() == '') {
       alert('Username and password cannot be empty');
