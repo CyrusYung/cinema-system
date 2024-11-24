@@ -2,7 +2,6 @@ $(function () {
   $('#registerbtn').on('click', async function () {
     var Namecheck = true;
     var Pwcheck = true;
-    var RePwcheck = true;
     var GenderCheck = true;
     var emailCheck = true;
     var birthCheck = true;
@@ -22,8 +21,10 @@ $(function () {
       GenderCheck = false;
     } else if (!$('#nickname').val()) {
       alert('Please input your nickname.');
+      nicknameCheck = false;
     } else if (!$('#birth').val()) {
       alert('Please choose your date of birth.');
+      birthCheck = false;
     }
     /*else if (!($('.form-select').val() == 'user' || $('.form-select').val() == 'student')) {
       alert('Please select your role.');
@@ -31,7 +32,7 @@ $(function () {
     }*/
     const formData = new FormData();
 
-    if (Namecheck && Pwcheck && RePwcheck) {
+    if (Namecheck && Pwcheck && emailCheck && GenderCheck && birthCheck && nicknameCheck) {
       try {
         $.ajax({
           type: 'POST',
