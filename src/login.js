@@ -1,59 +1,46 @@
 import express from 'express';
 import multer from 'multer';
-
+import bcrypt from 'bcrypt';
 import fs from 'fs';
-/*import validate_user from './userdb.js';
-import fetch_user from './userdb.js';
-import fetch_nickname from './userdb.js';
-import username_exist from './userdb.js';
-import update_user from './userdb.js';
-import nickname_exist from './userdb.js';
-*/
-import { validate_user, nickname_exist, username_exist, fetch_nickname, fetch_user, update_user } from './userdb.js';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import imgSchema from './model.js';
+import {
+  validate_user,
+  nickname_exist,
+  username_exist,
+  fetch_nickname,
+  fetch_user,
+  update_user,
+  update_login,
+} from './userdb.js';
 //var users = new Map();
 var now = new Date();
 var datetime = now.toLocaleString();
 
-/*function init_userdb() {
-  if (users[0] != null) {
-    console.log('something inside');
-    return;
-  } else {
-    fs.readFile('./user.json', 'utf-8', function (err, data) {
-      if (err) {
-        console.log(err);
-      } else {
-        var temp = data;
-        var userData = JSON.parse(temp);
-        userData.forEach((element) => {
-          users.set(element.username, element);
-        });
-        console.log(users);
-      }
-    });
-  }
-}*/
-
-/*function validate_user(username, password) {
-  if (fetch_user(username) && password == fetch_user(username).password) {
-    return true;
-  } else {
-    return false;
-  }
-}*/
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 var route = express();
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 var form = multer();
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now());
+  },
+});
+var upload = multer({ dest: 'uploads/', storage: multer.memoryStorage() });
 
 route.post('/login', form.none(), async (req, res, next) => {
   if (req.session.logged) {
     req.session.logged = false;
   }
 
-  if (validate_user(req.body.username, req.body.password)) {
-    var currentUser = fetch_user(req.body.username);
+  if (await validate_user(req.body.username, req.body.password)) {
+    var currentUser = await fetch_user(req.body.username);
     //console.log(currentUser);
     if (currentUser.enabled == false) {
       res.status(401).json({
@@ -97,7 +84,7 @@ route.post('/logout', async (req, res, next) => {
 
 route.get('/me', async (req, res) => {
   if (req.session.logged) {
-    var loggedUser = fetch_user(req.session.username);
+    var loggedUser = await fetch_user(req.session.username);
     res.json({
       status: 'success',
       user: {
@@ -132,11 +119,23 @@ route.get('/me', async (req, res) => {
   });
 }*/
 
-route.post('/register', form.none(), async (req, res, next) => {
+route.post('/register', upload.single('image'), async (req, res, next) => {
   setTimeout(next, 2000);
   console.log(req.body);
   //console.log(users);
-
+  const hash = await bcrypt.hash(req.body.password, 10);
+  const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  var obj = {
+    nickname: req.body.nickname,
+    email: req.body.email,
+    gender: req.body.gender,
+    birth: req.body.birth,
+    img: {
+      data: req.file,
+      contentType: 'image/png',
+    },
+  };
+  //imgSchema.create(obj);
   if (!req.body.username || !req.body.password || !req.body.Repassword) {
     res.status(400).json({
       status: 'failed',
@@ -177,16 +176,20 @@ route.post('/register', form.none(), async (req, res, next) => {
   } else if (await nickname_exist(req.body.nickname)) {
     res.status(400).json({
       status: 'failed',
-      message: 'nickname' + req.body.nickname + 'exists',
+      message: 'nickname `' + req.body.nickname + '` exists',
     });
   } else if (!req.body.email) {
     res.status(400).json({
       status: 'failed',
       message: 'email cannot be empty',
     });
+  } else if (!req.body.email.match(emailFormat)) {
+    res.status(400).json({
+      status: 'failed',
+      message: 'Invalid email format',
+    });
   } else {
-    //export function still bug
-    if (update_user(req.body.username, req.body.password, true)) {
+    if (update_login(req.body.username, hash, true) && update_user(req.body.username, obj)) {
       res.json({
         status: 'success',
         user: {

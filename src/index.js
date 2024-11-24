@@ -23,16 +23,13 @@ var now = new Date();
 var datetime = now.toLocaleString();
 
 app.get('/', (req, res) => {
-  res.redirect('/login.html');
-});
-/*app.get('/', (req, res) => {
   //may error
   if (req.session.logged) {
     res.redirect('/index.html');
   } else {
     res.redirect('/login.html');
   }
-});*/
+});
 
 app.use('/auth', login);
 

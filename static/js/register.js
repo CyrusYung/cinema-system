@@ -30,7 +30,17 @@ $(function () {
       alert('Please select your role.');
       RePwcheck = false;
     }*/
-    const formData = new FormData();
+    const form_Data = new FormData();
+
+    //const hash = await bcrypt.hash($('#password').val(), 10);
+
+    /*form_Data.append('username', $('#username').val());
+    form_Data.append('password', hash);
+    form_Data.append('nickname', $('#nickname').val());
+    form_Data.append('email', $('#email').val());
+    form_Data.append('gender', $('#gender').val());
+    form_Data.append('birth', $('#birth').val());
+    form_Data.append('image', $('#image').val());*/
 
     if (Namecheck && Pwcheck && emailCheck && GenderCheck && birthCheck && nicknameCheck) {
       try {
