@@ -1,5 +1,8 @@
 import express from 'express';
 import session from 'express-session';
+import login from './login.js';
+import mongostore from 'connect-mongo';
+import client from './dbclient.js';
 const app = express();
 app.use(
   session({
@@ -7,6 +10,11 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { httpOnly: true },
+    store: mongostore.create({
+      client,
+      dbName: 'cinemadb',
+      collectionName: 'session',
+    }),
   })
 );
 
@@ -26,7 +34,7 @@ app.get('/', (req, res) => {
   }
 });*/
 
-//app.use('/auth', login);
+app.use('/auth', login);
 
 app.use('/', express.static('static'));
 
