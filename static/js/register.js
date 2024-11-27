@@ -34,13 +34,14 @@ $(function () {
 
     //const hash = await bcrypt.hash($('#password').val(), 10);
 
-    /*form_Data.append('username', $('#username').val());
-    form_Data.append('password', hash);
+    form_Data.append('username', $('#username').val());
+    form_Data.append('password', $('#password').val());
+    form_Data.append('Repassword', $('#Repassword').val());
     form_Data.append('nickname', $('#nickname').val());
     form_Data.append('email', $('#email').val());
-    form_Data.append('gender', $('#gender').val());
+    form_Data.append('gender', $('input[name="gender"]:checked').val());
     form_Data.append('birth', $('#birth').val());
-    form_Data.append('image', $('#image').val());*/
+    form_Data.append('image', $('#image').prop('files')[0]);
 
     if (Namecheck && Pwcheck && emailCheck && GenderCheck && birthCheck && nicknameCheck) {
       try {
@@ -48,8 +49,10 @@ $(function () {
           type: 'POST',
           url: ' /auth/register',
 
-          data: $('#registerForm').serialize(),
+          data: form_Data,
           async: false,
+          contentType: false,
+          processData: false,
           success: async function (data) {
             console.log(data);
             alert('Welcome, ' + data.user.username + '!\n' + 'You can login with your account now!');

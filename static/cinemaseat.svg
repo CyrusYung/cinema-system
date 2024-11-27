@@ -1,0 +1,76 @@
+<svg id="A1-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 1280 720" style='  height:100%; width:100%'>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: silver;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #000;
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #00a61f;
+      }
+    </style>
+  </defs>
+  <path id="矩形_3" data-name="矩形 3" class="cls-1" d="M-17-16H1325V759H-17V-16Z"/>
+  <image id="screen" x="178" y="99" width="909" height="17" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAA40AAAARCAYAAAB5GEmcAAABMklEQVR4nO3d3WrDMAwGUGfs/V85IwMz41mx3W2sKufclCaKDLkpX5Wfo5RyFgAAABh4c1IAAACICI0AAACEhEYAAABCQiMAAAChd6cGgEzO8+v5bcdxfH6/PlttTa0rwfa+30qf3qxud10AeCYmjQCkUYPWFbL64FX1NaXb1tfOguCoz27dbN1RXwB4FkIjAOnchcAd9fidPu2+1bqeySIAmQiNAKQUBcdeOwGc1QEA3wmNAKTx08niI641VtZZrQOAbDwIB4BU+nsZ7+5L/A2rvU0qAXhVJo0ApLF6SepfWp0mmjoC8CqERgBSuQuO0RNJH31AzqhPu2+1DgAyu37R/BUKQAo1jM3ecbj6nsbo+Fmf3bpo3dX+APCfhEYAAABCLk8FAAAgJDQCAAAwVkr5ACXYnxgxRyKxAAAAAElFTkSuQmCC"/>
+  <path id="矩形_2" data-name="矩形 2" class="cls-2" d="M194,236h48v35H194V236Z"/>
+  <path id="矩形_2-2" data-name="矩形 2" class="cls-2" d="M338,236h48v35H338V236Z"/>
+  <path id="矩形_2-3" data-name="矩形 2" class="cls-2" d="M290,236h48v35H290V236Z"/>
+  <path id="矩形_2-4" data-name="矩形 2" class="cls-2" d="M242,236h48v35H242V236Z"/>
+  <path id="矩形_2-5" data-name="矩形 2" class="cls-2" d="M194,324h48v35H194V324Z"/>
+  <path id="矩形_2-6" data-name="矩形 2" class="cls-2" d="M338,324h48v35H338V324Z"/>
+  <path id="矩形_2-7" data-name="矩形 2" class="cls-2" d="M290,324h48v35H290V324Z"/>
+  <path id="矩形_2-8" data-name="矩形 2" class="cls-2" d="M242,324h48v35H242V324Z"/>
+  <path id="矩形_2-9" data-name="矩形 2" class="cls-2" d="M194,411h48v35H194V411Z"/>
+  <path id="矩形_2-10" data-name="矩形 2" class="cls-2" d="M338,411h48v35H338V411Z"/>
+  <path id="矩形_2-11" data-name="矩形 2" class="cls-2" d="M290,411h48v35H290V411Z"/>
+  <path id="矩形_2-12" data-name="矩形 2" class="cls-2" d="M242,411h48v35H242V411Z"/>
+  <path id="矩形_2-13" data-name="矩形 2" class="cls-2" d="M194,516h48v35H194V516Z"/>
+  <path id="矩形_2-14" data-name="矩形 2" class="cls-2" d="M338,516h48v35H338V516Z"/>
+  <path id="矩形_2-15" data-name="矩形 2" class="cls-2" d="M290,516h48v35H290V516Z"/>
+  <path id="矩形_2-16" data-name="矩形 2" class="cls-2" d="M242,516h48v35H242V516Z"/>
+  <path id="矩形_2-17" data-name="矩形 2" class="cls-2" d="M1008,517h48v35h-48V517Z"/>
+  <path id="矩形_2-18" data-name="矩形 2" class="cls-2" d="M960,517h48v35H960V517Z"/>
+  <path id="矩形_2-19" data-name="矩形 2" class="cls-2" d="M912,517h48v35H912V517Z"/>
+  <path id="矩形_2-20" data-name="矩形 2" class="cls-2" d="M1008,412h48v35h-48V412Z"/>
+  <path id="矩形_2-21" data-name="矩形 2" class="cls-2" d="M960,412h48v35H960V412Z"/>
+  <path id="矩形_2-22" data-name="矩形 2" class="cls-2" d="M912,412h48v35H912V412Z"/>
+  <path id="矩形_2-23" data-name="矩形 2" class="cls-2" d="M1008,326h48v35h-48V326Z"/>
+  <path id="矩形_2-24" data-name="矩形 2" class="cls-2" d="M960,326h48v35H960V326Z"/>
+  <path id="矩形_2-25" data-name="矩形 2" class="cls-2" d="M912,326h48v35H912V326Z"/>
+  <path id="矩形_2-26" data-name="矩形 2" class="cls-2" d="M1008,236h48v35h-48V236Z"/>
+  <path id="矩形_2-27" data-name="矩形 2" class="cls-2" d="M960,236h48v35H960V236Z"/>
+  <path id="矩形_2-28" data-name="矩形 2" class="cls-2" d="M912,236h48v35H912V236Z"/>
+  <path id="矩形_2-29" data-name="矩形 2" class="cls-2" d="M520,237h48v35H520V237Z"/>
+  <path id="矩形_2-30" data-name="矩形 2" class="cls-2" d="M712,237h48v35H712V237Z"/>
+  <path id="矩形_2-31" data-name="矩形 2" class="cls-2" d="M664,237h48v35H664V237Z"/>
+  <path id="矩形_2-32" data-name="矩形 2" class="cls-2" d="M616,237h48v35H616V237Z"/>
+  <path id="矩形_2-33" data-name="矩形 2" class="cls-2" d="M568,237h48v35H568V237Z"/>
+  <path id="矩形_2-34" data-name="矩形 2" class="cls-2" d="M760.5,237.5h48v35h-48v-35Z"/>
+  <path id="矩形_2-35" data-name="矩形 2" class="cls-2" d="M472.5,237.5h48v35h-48v-35Z"/>
+  <path id="矩形_2-36" data-name="矩形 2" class="cls-2" d="M521,325h48v35H521V325Z"/>
+  <path id="矩形_2-37" data-name="矩形 2" class="cls-2" d="M713,325h48v35H713V325Z"/>
+  <path id="矩形_2-38" data-name="矩形 2" class="cls-2" d="M665,325h48v35H665V325Z"/>
+  <path id="矩形_2-39" data-name="矩形 2" class="cls-2" d="M617,325h48v35H617V325Z"/>
+  <path id="矩形_2-40" data-name="矩形 2" class="cls-2" d="M569,325h48v35H569V325Z"/>
+  <path id="矩形_2-41" data-name="矩形 2" class="cls-2" d="M522,411h48v35H522V411Z"/>
+  <path id="矩形_2-42" data-name="矩形 2" class="cls-2" d="M714,411h48v35H714V411Z"/>
+  <path id="矩形_2-43" data-name="矩形 2" class="cls-2" d="M666,411h48v35H666V411Z"/>
+  <path id="矩形_2-44" data-name="矩形 2" class="cls-2" d="M618,411h48v35H618V411Z"/>
+  <path id="矩形_2-45" data-name="矩形 2" class="cls-2" d="M570,411h48v35H570V411Z"/>
+  <path id="矩形_2-46" data-name="矩形 2" class="cls-2" d="M523,516h48v35H523V516Z"/>
+  <path id="矩形_2-47" data-name="矩形 2" class="cls-2" d="M715,516h48v35H715V516Z"/>
+  <path id="矩形_2-48" data-name="矩形 2" class="cls-2" d="M667,516h48v35H667V516Z"/>
+  <path id="矩形_2-49" data-name="矩形 2" class="cls-2" d="M619,516h48v35H619V516Z"/>
+  <path id="矩形_2-50" data-name="矩形 2" class="cls-2" d="M571,516h48v35H571V516Z"/>
+  <path id="矩形_2-51" data-name="矩形 2" class="cls-2" d="M522,621h48v35H522V621Z"/>
+  <path id="矩形_2-52" data-name="矩形 2" class="cls-2" d="M714,621h48v35H714V621Z"/>
+  <path id="矩形_2-53" data-name="矩形 2" class="cls-2" d="M666,621h48v35H666V621Z"/>
+  <path id="矩形_2-54" data-name="矩形 2" class="cls-2" d="M618,621h48v35H618V621Z"/>
+  <path id="矩形_2-55" data-name="矩形 2" class="cls-2" d="M570,621h48v35H570V621Z"/>
+</svg>

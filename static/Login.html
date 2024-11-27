@@ -13,41 +13,7 @@
   <title>Login</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
-    <div class="container-fluid bg-dark py-2">
-      <button
-        class="navbar-toggler ml-auto customer-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"> </span>
-      </button>
-      <div class="text-right" style="float: right">
-        <a href="./Profile.html">
-          <img src="./usericon.png" style="height: 50px" id="icon" />
-        </a>
-      </div>
-      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class="navbar-nav column-gap-2">
-          <li class="nav-item p-2">
-            <a class="nav-link" href="./index.html">Home</a>
-          </li>
-          <li class="nav-item p-2">
-            <a class="nav-link link-primary fw-semibold active" href="Login.html">Login/Register</a>
-          </li>
-          <li class="nav-item p-2">
-            <a class="nav-link" href="./Film.html">Films</a>
-          </li>
-          <li class="nav-item p-2">
-            <a class="nav-link" href="#">test</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div id="nav-placeholder"></div>
   <div class="h-25"></div>
   <div class="container d-flex align-items-center justify-content-center h-50">
     <form action="" method="post" id="loginForm">
@@ -86,4 +52,12 @@
     </form>
   </div>
   <div class="h-25" id="a"></div>
+  <script>
+    $(function () {
+      $('#nav-placeholder').load('nav.html');
+      $('#login').addClass('link-primary');
+      $('#login').addClass('active');
+      $('#login').addClass('semi-bold');
+    });
+  </script>
 </body>

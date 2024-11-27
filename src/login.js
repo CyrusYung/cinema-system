@@ -13,6 +13,7 @@ import {
   fetch_user,
   update_user,
   update_login,
+  fetch_profile,
 } from './userdb.js';
 //var users = new Map();
 var now = new Date();
@@ -26,13 +27,13 @@ route.use(express.urlencoded({ extended: true }));
 var form = multer();
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads');
+    cb(null, './uploads/');
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now());
+    cb(null, Date.now() + file.originalname);
   },
 });
-var upload = multer({ dest: 'uploads/', storage: multer.memoryStorage() });
+const upload = multer({ storage: storage });
 
 route.post('/login', form.none(), async (req, res, next) => {
   if (req.session.logged) {
@@ -69,7 +70,7 @@ route.post('/login', form.none(), async (req, res, next) => {
   next();
 });
 
-route.post('/logout', async (req, res, next) => {
+route.post('/logout', async (req, res) => {
   if (req.session.logged == true) {
     req.session.destroy();
     res.end();
@@ -79,12 +80,12 @@ route.post('/logout', async (req, res, next) => {
       message: 'Unauthorized',
     });
   }
-  next();
 });
 
 route.get('/me', async (req, res) => {
   if (req.session.logged) {
     var loggedUser = await fetch_user(req.session.username);
+
     res.json({
       status: 'success',
       user: {
@@ -100,6 +101,21 @@ route.get('/me', async (req, res) => {
   }
 });
 
+route.get('/nav', async (req, res) => {
+  if (req.session.logged) {
+    var userinfo = await fetch_profile(req.session.username);
+    //console.log(userinfo.obj.img);
+    res.json({
+      status: 'success',
+      user: { username: req.session.username, icon: userinfo.obj.img },
+    });
+  } else {
+    res.status(401).json({
+      status: 'failed',
+      message: 'Unauthorized',
+    });
+  }
+});
 /*async function update_user(username, password, role) {
   users.set(username, { username: username, password: password, role: role, enabled: true });
   var userjson = [];

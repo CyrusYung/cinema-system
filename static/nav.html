@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
+  <div class="container-fluid bg-dark py-2">
+    <button
+      class="navbar-toggler ml-auto customer-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      id="togglebar">
+      <span class="navbar-toggler-icon"> </span>
+    </button>
+    <div class="text-right" style="float: right">
+      <a href="./Profile.html">
+        <img src="./usericon.png" style="height: 50px" id="icon" />
+      </a>
+    </div>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav column-gap-2">
+        <li class="nav-item p-2">
+          <a class="nav-link" href="./index.html" id="index">Home</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link" href="./Login.html" id="login">Login/Register</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link" href="./Film.html" id="film">Films</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link disabled" href="./test.html" id="test">test</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function getPageName(url) {
+    var index = url.lastIndexOf('/') + 1;
+    var filenameWithExtension = url.substr(index);
+    var filename = filenameWithExtension.split('.')[0]; // <-- added this line
+    return filename; // <-- added this line
+  }
+  $(function () {
+    var currentPageName = getPageName(window.location.pathname);
+    console.log(currentPageName);
+    $('#' + currentPageName).addClass('link-primary');
+    if (currentPageName == 'Register') {
+      $('#login').addClass('link-primary');
+    }
+  });
+</script>
