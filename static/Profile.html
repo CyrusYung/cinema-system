@@ -50,13 +50,24 @@
   </nav>
 </body>
 <div class="container d-flex align-items-center justify-content-center h-50">
-  <div class="row">
+  <div class="row py-3">
     <div class="col-sm"></div>
     <div class="col-sm"><img src="./usericon.png" style="height: 300px" /></div>
     <div class="col-sm"></div>
     <div class="row">
-      <label>Username:</label>
-      <input type="text" value="text" />
+      <div class="col-sm"></div>
+      <div class="col-sm">
+        <label>Username:</label><br />
+        <input type="text" value="text" id="username" disabled style="width: 500px" />
+      </div>
+    </div>
+    <div class="row py-3">
+      <label>Nickname:</label>
+      <input type="text" value="text" disabled />
+    </div>
+    <div class="row">
+      <label>Email:</label>
+      <input type="text" value="text" disabled />
     </div>
   </div>
 </div>

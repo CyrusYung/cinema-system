@@ -146,9 +146,26 @@ export async function nickname_exist(nickname) {
   }
 }
 
+export async function fetch_profile(username) {
+  try {
+    const userinfo = client.db('cinemadb').collection('users');
+    const result = userinfo.findOne({ username: username });
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
 init_db().catch(console.dir);
 
-export default { validate_user, nickname_exist, username_exist, fetch_nickname, fetch_user, update_user };
+export default {
+  validate_user,
+  nickname_exist,
+  username_exist,
+  fetch_nickname,
+  fetch_user,
+  update_user,
+  fetch_profile,
+};
 username_exist('21099757D').then((res) => console.log(res));
 //fetch_user('21099757D').then((res) => console.log(res));
 //update_user('21099757D', '21099757D', 'user', false).then((res) => console.log(res));
