@@ -9,24 +9,18 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script type="text/javascript" src="js/index.js"></script>
-  <title>Homepage</title>
+  <script src="./js/login.js"></script>
+  <title>Login</title>
 </head>
-<div id="nav-placeholder"></div>
-
 <body>
-  <header class="text-center p-3">
-    <h1>Home Page</h1>
-  </header>
-  <h4 id="welcome">Welcome back!</h4>
-  <input type="button" class="btn btn-primary" value="Logout" id="logout" />
-
-  <script>
-    $(function () {
-      $('#nav-placeholder').load('nav.html');
-      $('#index').addClass('link-primary');
-      $('#index').addClass('active');
-      $('#index').addClass('semi-bold');
-    });
-  </script>
+  <div id="nav-placeholder"></div>
 </body>
+
+<script>
+  $(function () {
+    $('#nav-placeholder').load('nav.html');
+    $('#test').addClass('link-primary');
+    $('#test').addClass('active');
+    $('#test').addClass('semi-bold');
+  });
+</script>

@@ -1,0 +1,73 @@
+<head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous" />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="./js/login.js"></script>
+  <title>Profile</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
+    <div class="container-fluid bg-dark py-2">
+      <button
+        class="navbar-toggler ml-auto customer-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"> </span>
+      </button>
+      <div class="text-right" style="float: right">
+        <a href="#">
+          <img src="./usericon.png" style="height: 50px" id="icon" />
+        </a>
+      </div>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+        <ul class="navbar-nav column-gap-2">
+          <li class="nav-item p-2">
+            <a class="nav-link" href="./index.html">Home</a>
+          </li>
+          <li class="nav-item p-2">
+            <a class="nav-link link-primary fw-semibold active" href="Login.html">Login/Register</a>
+          </li>
+          <li class="nav-item p-2">
+            <a class="nav-link" href="./Film.html">Films</a>
+          </li>
+          <li class="nav-item p-2">
+            <a class="nav-link" href="#">test</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</body>
+<div class="container d-flex align-items-center justify-content-center h-50">
+  <div class="row py-3">
+    <div class="col-sm"></div>
+    <div class="col-sm"><img src="./usericon.png" style="height: 300px" /></div>
+    <div class="col-sm"></div>
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-sm">
+        <label>Username:</label><br />
+        <input type="text" value="text" id="username" disabled style="width: 500px" />
+      </div>
+    </div>
+    <div class="row py-3">
+      <label>Nickname:</label>
+      <input type="text" value="text" disabled />
+    </div>
+    <div class="row">
+      <label>Email:</label>
+      <input type="text" value="text" disabled />
+    </div>
+  </div>
+</div>

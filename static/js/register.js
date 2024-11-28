@@ -2,7 +2,6 @@ $(function () {
   $('#registerbtn').on('click', async function () {
     var Namecheck = true;
     var Pwcheck = true;
-    var RePwcheck = true;
     var GenderCheck = true;
     var emailCheck = true;
     var birthCheck = true;
@@ -22,23 +21,38 @@ $(function () {
       GenderCheck = false;
     } else if (!$('#nickname').val()) {
       alert('Please input your nickname.');
+      nicknameCheck = false;
     } else if (!$('#birth').val()) {
       alert('Please choose your date of birth.');
+      birthCheck = false;
     }
     /*else if (!($('.form-select').val() == 'user' || $('.form-select').val() == 'student')) {
       alert('Please select your role.');
       RePwcheck = false;
     }*/
-    const formData = new FormData();
+    const form_Data = new FormData();
 
-    if (Namecheck && Pwcheck && RePwcheck) {
+    //const hash = await bcrypt.hash($('#password').val(), 10);
+
+    form_Data.append('username', $('#username').val());
+    form_Data.append('password', $('#password').val());
+    form_Data.append('Repassword', $('#Repassword').val());
+    form_Data.append('nickname', $('#nickname').val());
+    form_Data.append('email', $('#email').val());
+    form_Data.append('gender', $('input[name="gender"]:checked').val());
+    form_Data.append('birth', $('#birth').val());
+    form_Data.append('image', $('#image').prop('files')[0]);
+
+    if (Namecheck && Pwcheck && emailCheck && GenderCheck && birthCheck && nicknameCheck) {
       try {
         $.ajax({
           type: 'POST',
           url: ' /auth/register',
 
-          data: $('#registerForm').serialize(),
+          data: form_Data,
           async: false,
+          contentType: false,
+          processData: false,
           success: async function (data) {
             console.log(data);
             alert('Welcome, ' + data.user.username + '!\n' + 'You can login with your account now!');
