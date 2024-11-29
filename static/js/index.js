@@ -1,6 +1,5 @@
 $(function () {
   $('#logout').on('click', function () {
-    console.log('yo');
     if (window.confirm('Confirm to logout?')) {
       $.ajax({
         url: 'auth/logout',

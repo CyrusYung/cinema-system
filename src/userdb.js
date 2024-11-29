@@ -8,6 +8,7 @@ async function init_db() {
 
     const usersinfo = client.db('cinemadb').collection('users');
     const userlogin = client.db('cinemadb').collection('login');
+    const booking = client.db('cinemadb').collection('booking');
     //console.log((await users.countDocuments({})) == 0);
     if ((await usersinfo.countDocuments({})) == 0) {
       fs.readFile('./users.json', 'utf-8', async function (err, data) {
@@ -58,6 +59,21 @@ export async function validate_user(username, password) {
     }
   } catch (err) {
     console.log('Unable to fetch from database!');
+  }
+}
+export async function Record_Payment(username, bookingDetail) {
+  try {
+    const userlogin = client.db('cinemadb').collection('Payment');
+    const result = await userlogin.updateOne({ username: username }, { $set: { bookingDetail: bookingDetail } });
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 userPayment');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 userPayment');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
   }
 }
 
@@ -146,6 +162,15 @@ export async function nickname_exist(nickname) {
   }
 }
 
+/*export async function fetch_Payment(username) {
+  try {
+    const userlogin = client.db('cinemadb').collection('Payment');
+    const result = userlogin.findOne({ username: username,Date: });
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}*/
 export async function fetch_profile(username) {
   try {
     const userinfo = client.db('cinemadb').collection('users');
@@ -165,6 +190,7 @@ export default {
   fetch_user,
   update_user,
   fetch_profile,
+  Record_Payment,
 };
 username_exist('21099757D').then((res) => console.log(res));
 //fetch_user('21099757D').then((res) => console.log(res));
