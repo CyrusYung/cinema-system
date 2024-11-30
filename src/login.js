@@ -27,7 +27,7 @@ route.use(express.urlencoded({ extended: true }));
 var form = multer();
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './uploads/');
+    cb(null, './static/uploads/');
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
@@ -174,7 +174,7 @@ route.post('/register', upload.single('image'), async (req, res, next) => {
       status: 'failed',
       message: 'Password must be at least 8 characters',
     });
-  } else if (!(req.body.gender == 'male' || req.body.role == 'female')) {
+  } else if (!(req.body.gender == 'male' || req.body.gender == 'female')) {
     res.status(400).json({
       status: 'failed',
       message: 'Gender can only be either `male` or `female`',
