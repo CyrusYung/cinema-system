@@ -64,7 +64,7 @@ export async function validate_user(username, password) {
 export async function Record_Payment(username, bookingDetail) {
   try {
     const userlogin = client.db('cinemadb').collection('Payment');
-    const result = await userlogin.updateOne({ username: username }, { $set: { bookingDetail: bookingDetail } });
+    const result = await userlogin.insertOne({ username: username, bookingDetail: bookingDetail, status: 'success' });
     //console.log(result.modifiedCount);
     if (result.modifiedCount == 1) {
       console.log('Added 0 userPayment');
@@ -74,6 +74,16 @@ export async function Record_Payment(username, bookingDetail) {
     }
   } catch (err) {
     console.log('Unable to update the database!');
+  }
+}
+export async function fetch_transaction(username) {
+  try {
+    const transaction = client.db('cinemadb').collection('Payment');
+    const result = transaction.find({ username: username }).toArray();
+    //console.log(result.modifiedCount);
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
   }
 }
 
@@ -117,10 +127,76 @@ export async function update_user(username, obj) {
     console.log('Unable to update the database!');
   }
 }
+export async function update_icon(username, image) {
+  try {
+    const userinfo = client.db('cinemadb').collection('users');
+
+    const result = await userinfo.updateOne(
+      { username: username },
+      { $set: { 'obj.img': image.img } },
+      { upsert: true }
+    );
+    /*const result = await userinfo.updateOne(
+      { username: username },
+      { $set: { gender: gender, email: email, birth: birth, nickname: nickname, image: image } },
+      { upsert: true }
+    );*/
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 userIcon');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 userIcon');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function update_profile(username, obj) {
+  try {
+    const userinfo = client.db('cinemadb').collection('users');
+
+    const result = await userinfo.updateOne(
+      { username: username },
+      {
+        $set: {
+          'obj.nickname': obj.nickname,
+          'obj.email': obj.email,
+          'obj.gender': obj.gender,
+          'obj.birth': obj.birth,
+        },
+      },
+      { upsert: true }
+    );
+    /*const result = await userinfo.updateOne(
+      { username: username },
+      { $set: { gender: gender, email: email, birth: birth, nickname: nickname, image: image } },
+      { upsert: true }
+    );*/
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 Profile');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 Profile');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
 export async function fetch_user(username) {
   try {
     const userlogin = client.db('cinemadb').collection('login');
     const result = userlogin.findOne({ username: username });
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
+export async function fetch_userInfo(username) {
+  try {
+    const userinfo = client.db('cinemadb').collection('users');
+    const result = userinfo.findOne({ username: username });
     return result;
   } catch (err) {
     console.log('Unable to fetch from database!');
@@ -191,6 +267,10 @@ export default {
   update_user,
   fetch_profile,
   Record_Payment,
+  fetch_transaction,
+  fetch_userInfo,
+  update_icon,
+  update_profile,
 };
 username_exist('21099757D').then((res) => console.log(res));
 //fetch_user('21099757D').then((res) => console.log(res));

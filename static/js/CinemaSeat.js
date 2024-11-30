@@ -1,4 +1,19 @@
 $(document).ready(function () {
+  $.ajax({
+    url: '/auth/me',
+    method: 'GET',
+    success: function (response) {
+      //console.log(response);
+      //document.getElementById('icon').src = '';
+      console.log('success');
+    },
+    error: function (error) {
+      console.log('fail');
+      alert('Please login');
+      window.open('/login.html', '_self');
+    },
+  });
+  //$('#seatMap').append();
   var Overallchoosen = '';
   var Normalseat = 0;
   var VIPseat = 0;

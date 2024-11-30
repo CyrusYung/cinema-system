@@ -4,6 +4,7 @@ import login from './login.js';
 import mongostore from 'connect-mongo';
 import client from './dbclient.js';
 import Payment from './Payment.js';
+import Profile from './profile.js';
 const app = express();
 app.use(
   session({
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
   }
 });
 
+app.use('/user', Profile);
 app.use('/pay', Payment);
 app.use('/auth', login);
 

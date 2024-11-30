@@ -15,6 +15,7 @@ import {
   update_login,
   fetch_profile,
   Record_Payment,
+  fetch_transaction,
 } from './userdb.js';
 
 var route = express();
@@ -65,6 +66,27 @@ route.get('/success', async (req, res) => {
       Price: req.body.totalPrice,*/
     },
   });
+});
+
+route.get('/history', async (req, res) => {
+  //console.log(req.session.logged);
+  console.log(await fetch_transaction(req.session.username));
+  if (req.session.logged) {
+    var transaction = await fetch_transaction(req.session.username);
+    //console.log(transaction);
+    res.json({
+      status: 'success',
+      user: {
+        username: req.session.username,
+        history: transaction,
+      },
+    });
+  } else {
+    res.status(401).json({
+      status: 'failed',
+      message: 'Unauthorized',
+    });
+  }
 });
 
 export default route;
