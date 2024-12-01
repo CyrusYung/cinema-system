@@ -13,15 +13,20 @@ $(document).ready(function () {
       window.open('/login.html', '_self');
     },
   });
+
   var now = new Date();
   var datetime = now.toLocaleString();
   var SeatString = '';
   console.log(JSON.parse(localStorage.getItem('bookingtemp')));
   const bookinginfo = JSON.parse(localStorage.getItem('bookingtemp'));
+  if (bookinginfo.discount == true) {
+    $('#discount').removeClass('d-none');
+  }
   $('#ticket').val(bookinginfo.ticketCount);
   $('#Kid').val(bookinginfo.kidCount);
   $('#Adult').val(bookinginfo.AdultCount);
   $('#Student').val(bookinginfo.StudentCount);
+  $('#film').val(bookinginfo.filmName);
   bookinginfo.Seat.forEach((item) => {
     SeatString += item + ',';
   });
@@ -45,7 +50,9 @@ $(document).ready(function () {
         formData.append('Seat', bookinginfo.Seat);
         formData.append('Price', bookinginfo.totalPrice);
         formData.append('CardNumber', $('#cardNo').val());
-        formData.append('Date', datetime);
+        formData.append('DateofFilm', bookinginfo.Date);
+        formData.append('DateofPayment', datetime);
+        formData.append('FilmName', bookinginfo.filmName);
         await $.ajax({
           type: 'POST',
           url: ' /pay/confirm',

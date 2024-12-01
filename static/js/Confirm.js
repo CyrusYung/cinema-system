@@ -7,6 +7,7 @@ $(function () {
   var lastIndex = SeatString.lastIndexOf(',');
   SeatString = SeatString.substring(0, lastIndex);
   console.log(SeatString);
+  document.getElementById('FilmName').innerHTML = 'FilmName: ' + bookinginfo.filmName;
   document.getElementById('seat').innerHTML = 'Seat: ' + SeatString;
   var now = new Date();
   var datetime = now.toLocaleString();

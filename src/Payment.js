@@ -16,12 +16,26 @@ import {
   fetch_profile,
   Record_Payment,
   fetch_transaction,
+  insert_seat,
+  fetch_seat,
 } from './userdb.js';
 
 var route = express();
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 var form = multer();
+
+route.post('/seat', form.none(), async (req, res) => {
+  console.log(req.body.Date);
+  var seat = await fetch_seat(req.body.Date, req.body.filmName);
+  console.log(seat);
+  res.json({
+    status: 'success',
+    seat: {
+      seat: seat,
+    },
+  });
+});
 
 route.post('/confirm', form.none(), async (req, res) => {
   //console.log(req.session.username);
@@ -33,9 +47,12 @@ route.post('/confirm', form.none(), async (req, res) => {
     Seat: req.body.Seat,
     Price: req.body.Price,
     CardNumber: req.body.CardNumber,
-    Date: req.body.Date,
+    DateofFilm: req.body.DateofFilm,
+    FilmName: req.body.FilmName,
+    DateofPayment: req.body.DateofPayment,
   };
   Record_Payment(req.session.username, bookingDetail);
+  insert_seat(req.session.username, req.body.Seat, req.body.DateofFilm, req.body.FilmName);
   res.json({
     status: 'success',
     user: {
@@ -46,6 +63,7 @@ route.post('/confirm', form.none(), async (req, res) => {
         StudentCount: req.session.StudentCount,
         ticketCount: req.session.ticketCount,
         Seat: req.session.Seat,
+        FilmName: req.body.FilmName,
         Price: req.session.totalPrice,
       },
     },

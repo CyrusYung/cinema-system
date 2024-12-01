@@ -14,6 +14,9 @@ import {
   fetch_userInfo,
   update_icon,
   update_profile,
+  fetch_alluser,
+  update_status,
+  delete_ac,
 } from './userdb.js';
 
 var now = new Date();
@@ -43,6 +46,38 @@ route.get('/profile', async (req, res) => {
       username: req.session.username,
       profile: profile,
       login: login,
+    },
+  });
+});
+
+route.post('/status', form.none(), async (req, res) => {
+  var data = JSON.parse(req.body.enabled);
+  var status = await update_status(req.body.username, data);
+  res.json({
+    status: 'success',
+    user: {
+      username: req.body.username,
+      enabled: req.body.enabled,
+    },
+  });
+});
+
+route.post('/delete', form.none(), async (req, res) => {
+  var deleteAC = await delete_ac(req.body.username);
+  res.json({
+    status: 'success',
+    user: {
+      username: req.body.username,
+    },
+  });
+});
+
+route.get('/manage', async (req, res) => {
+  var profile = await fetch_alluser();
+  res.json({
+    status: 'success',
+    user: {
+      profile: profile,
     },
   });
 });
@@ -154,7 +189,7 @@ route.post('/update', form.none(), async (req, res, next) => {
       message: 'Invalid email format',
     });
   } else {
-    console.log('hi');
+    //console.log('hi');
     if (await update_profile(req.session.username, obj)) {
       res.json({
         status: 'success',

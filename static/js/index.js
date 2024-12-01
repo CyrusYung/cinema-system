@@ -1,19 +1,4 @@
 $(function () {
-  $('#logout').on('click', function () {
-    if (window.confirm('Confirm to logout?')) {
-      $.ajax({
-        url: 'auth/logout',
-        method: 'POST',
-        success: function (data) {
-          window.open('/login.html', '_self');
-          console.log('logout');
-        },
-        error: function (err) {
-          console.log(err);
-        },
-      });
-    }
-  });
   $.ajax({
     url: '/auth/me',
     method: 'GET',

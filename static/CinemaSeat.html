@@ -120,14 +120,30 @@
           <g id="D1">
             <path id="D1" data-name="矩形 2" class="cls-2" d="M194,516h48v35H194V516Z" />
           </g>
-          <g id="D4"><path id="D4" data-name="矩形 2" class="cls-2" d="M338,516h48v35H338V516Z" /></g>
-          <g id="D3"><path id="D3" data-name="矩形 2" class="cls-2" d="M290,516h48v35H290V516Z" /></g>
-          <g id="D2"><path id="D2" data-name="矩形 2" class="cls-2" d="M242,516h48v35H242V516Z" /></g>
-          <g id="D14"><path id="D14" data-name="矩形 2" class="cls-2" d="M1008,517h48v35h-48V517Z" /></g>
-          <g id="D13"><path id="D13" data-name="矩形 2" class="cls-2" d="M960,517h48v35H960V517Z" /></g>
-          <g id="D12"><path id="D12" data-name="矩形 2" class="cls-2" d="M912,517h48v35H912V517Z" /></g>
-          <g id="C14"><path id="C14" data-name="矩形 2" class="cls-2" d="M1008,412h48v35h-48V412Z" /></g>
-          <g id="C13"><path id="C13" data-name="矩形 2" class="cls-2" d="M960,412h48v35H960V412Z" /></g>
+          <g id="D4">
+            <path id="D4" data-name="矩形 2" class="cls-2" d="M338,516h48v35H338V516Z" />
+          </g>
+          <g id="D3">
+            <path id="D3" data-name="矩形 2" class="cls-2" d="M290,516h48v35H290V516Z" />
+          </g>
+          <g id="D2">
+            <path id="D2" data-name="矩形 2" class="cls-2" d="M242,516h48v35H242V516Z" />
+          </g>
+          <g id="D14">
+            <path id="D14" data-name="矩形 2" class="cls-2" d="M1008,517h48v35h-48V517Z" />
+          </g>
+          <g id="D13">
+            <path id="D13" data-name="矩形 2" class="cls-2" d="M960,517h48v35H960V517Z" />
+          </g>
+          <g id="D12">
+            <path id="D12" data-name="矩形 2" class="cls-2" d="M912,517h48v35H912V517Z" />
+          </g>
+          <g id="C14">
+            <path id="C14" data-name="矩形 2" class="cls-2" d="M1008,412h48v35h-48V412Z" />
+          </g>
+          <g id="C13">
+            <path id="C13" data-name="矩形 2" class="cls-2" d="M960,412h48v35H960V412Z" />
+          </g>
           <g id="C12"><path id="C12" data-name="矩形 2" class="cls-2" d="M912,412h48v35H912V412Z" /></g>
           <g id="B14"><path id="B14" data-name="矩形 2" class="cls-2" d="M1008,326h48v35h-48V326Z" /></g>
           <g id="B13"><path id="B13" data-name="矩形 2" class="cls-2" d="M960,326h48v35H960V326Z" /></g>
@@ -156,7 +172,7 @@
           <g id="D10"><path id="D10" data-name="矩形 2" class="cls-2" d="M715,516h48v35H715V516Z" /></g>
           <g id="D9"><path id="D9" data-name="矩形 2" class="cls-2" d="M667,516h48v35H667V516Z" /></g>
           <g id="D8"><path id="D8" data-name="矩形 2" class="cls-2" d="M619,516h48v35H619V516Z" /></g>
-          <g id="D8"><path id="D7" data-name="矩形 2" class="cls-2" d="M571,516h48v35H571V516Z" /></g>
+          <g id="D7"><path id="D7" data-name="矩形 2" class="cls-2" d="M571,516h48v35H571V516Z" /></g>
           <g id="E6">
             <path id="E6" data-name="矩形 2" class="cls-2" d="M522,621h48v35H522V621Z" style="fill: blue" />
           </g>
@@ -185,8 +201,22 @@
     </div>
     <div class="row py-3">
       <div class="col-sm-3"></div>
-
+      <div class="col-sm-6">
+        <label>Date of film</label>
+        <input class="form-control" style="width: 100%" type="date" name="date" id="date" />
+      </div>
+    </div>
+    <div class="row py-3">
       <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+        <label>Film name</label>
+        <select class="form-select" style="width: 100%" name="film" id="film">
+          <option value="original">Please Select</option>
+          <option value="Adventurer 5">Adventurer 5</option>
+          <option value="Love me">Love me</option>
+          <option value="ROBOT">ROBOT</option>
+        </select>
+      </div>
     </div>
     <div class="row py-3">
       <div class="col-sm-3"></div>
@@ -222,7 +252,7 @@
       <div class="col-sm-6">
         <label>Seat Price:</label>
         <div class="align-items-center">
-          <input type="text" value="0" id="SeatPrice" disabled style="width: 500px" />
+          <input type="text" value="0" id="SeatPrice" disabled style="width: 100%" />
         </div>
       </div>
       <div class="col-sm-3"></div>
@@ -232,7 +262,7 @@
       <div class="col-sm-6">
         <label>Overall Price (Ticket Price + Seat Price):</label>
         <div class="align-items-center">
-          <input type="text" value="0" id="TotalPrice" disabled style="width: 500px" />
+          <input type="text" value="0" id="TotalPrice" disabled style="width: 100%" />
         </div>
       </div>
       <div class="col-sm-3"></div>

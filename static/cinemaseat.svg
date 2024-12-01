@@ -1,3 +1,4 @@
+
 <svg
           id="SeatMap"
           xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +132,7 @@
             <path id="E6" data-name="矩形 2" class="cls-2" d="M522,621h48v35H522V621Z" style="fill: blue" />
           </g>
           <g id="E10">
-            <path id="E10" data-name="矩形 2" class="cls-2" d="M714,621h48v35H714V621Z" style="fill: blue" />
+            <path id="sE10" data-name="矩形 2" class="cls-2" d="M714,621h48v35H714V621Z" style="fill: blue" />
           </g>
           <g id="E9">
             <path id="E9" data-name="矩形 2" class="cls-2" d="M666,621h48v35H666V621Z" style="fill: blue" />
