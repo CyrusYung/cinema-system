@@ -101,14 +101,36 @@ route.get('/me', async (req, res) => {
   }
 });
 
+route.get('/admin', async (req, res) => {
+  if (req.session.logged) {
+    if (req.session.role == 'admin') {
+      console.log('admin');
+    } else {
+      res.status(400).json({
+        status: 'failed',
+        message: 'notAdmin',
+      });
+    }
+  } else {
+    res.status(401).json({
+      status: 'failed',
+      message: 'Unauthorized',
+    });
+  }
+});
+
 route.get('/nav', async (req, res) => {
   if (req.session.logged) {
-    var userinfo = await fetch_profile(req.session.username);
-    //console.log(userinfo.obj.img);
-    res.json({
-      status: 'success',
-      user: { username: req.session.username, icon: userinfo.obj.img },
-    });
+    if (req.session.role == 'admin') {
+      console.log('admin');
+    } else {
+      var userinfo = await fetch_profile(req.session.username);
+      //console.log(userinfo.obj);
+      res.json({
+        status: 'success',
+        user: { username: req.session.username, icon: userinfo.obj.img },
+      });
+    }
   } else {
     res.status(401).json({
       status: 'failed',
@@ -137,7 +159,7 @@ route.get('/nav', async (req, res) => {
 
 route.post('/register', upload.single('image'), async (req, res, next) => {
   setTimeout(next, 2000);
-  console.log(req.body);
+  //console.log(req.body);
   //console.log(users);
   const hash = await bcrypt.hash(req.body.password, 10);
   const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;

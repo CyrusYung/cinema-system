@@ -29,8 +29,12 @@ $(function () {
             //console.log(data.status);
 
             alert('Logged as `' + $('#username').val() + '` (' + data.user.role + ')');
+            if (data.user.role == 'admin') {
+              window.location.replace('adminIndex.html');
+            } else {
+              window.location.replace('index.html');
+            }
             //document.getElementById('a').innerHTML = info.status;
-            window.location.replace('index.html');
           },
           error: async function (data) {
             console.log(JSON.stringify(data));

@@ -9,6 +9,8 @@ async function init_db() {
     const usersinfo = client.db('cinemadb').collection('users');
     const userlogin = client.db('cinemadb').collection('login');
     const booking = client.db('cinemadb').collection('booking');
+    const SeatPlan = client.db('cinemadb').collection('seat');
+    const Event = client.db('cinemadb').collection('event');
     //console.log((await users.countDocuments({})) == 0);
     if ((await usersinfo.countDocuments({})) == 0) {
       fs.readFile('./users.json', 'utf-8', async function (err, data) {
@@ -101,6 +103,149 @@ export async function update_login(username, password, enabled) {
       return true;
     } else if (result.upsertedCount == 1) {
       console.log('Added 1 userlogin');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function delete_ac(username) {
+  try {
+    const userlogin = client.db('cinemadb').collection('login');
+    const userinfo = client.db('cinemadb').collection('users');
+    const result = await userlogin.deleteOne({ username: username });
+    const result2 = await userinfo.deleteOne({ username: username });
+    //console.log(result.modifiedCount);
+    if (result.deletedCount == 1) {
+      console.log('delete 1 userlogin');
+      console.log('delete 1 userinfo');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 userlogin');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function update_status(username, enabled) {
+  try {
+    const userlogin = client.db('cinemadb').collection('login');
+
+    const result = await userlogin.updateOne(
+      { username: username },
+      { $set: { role: 'user', enabled: enabled } },
+      { upsert: true }
+    );
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 userlogin');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 userlogin');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function insert_seat(username, seat, date, film) {
+  try {
+    const seatPlan = client.db('cinemadb').collection('seat');
+    const result = await seatPlan.insertOne({ username: username, seat: seat, date: date, film: film });
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 seatPlan');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 seatPlan');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function insert_event(title, description, date, venue, img) {
+  try {
+    const Event = client.db('cinemadb').collection('event');
+    const result = await Event.insertOne({
+      title: title,
+      description: description,
+      date: date,
+      venue: venue,
+      img: img,
+    });
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 Event');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 Event');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function update_event(title, description, date, venue, img) {
+  try {
+    const Event = client.db('cinemadb').collection('event');
+    const result = await Event.updateOne(
+      { title: title },
+      { $set: { description: description, date: date, venue: venue, img: img } },
+      { upsert: true }
+    );
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 seatPlan');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 seatPlan');
+    }
+  } catch (err) {
+    console.log('Unable to update the database!');
+  }
+}
+export async function event_exist(title) {
+  try {
+    var result = await fetch_event(title);
+
+    if (result != null) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
+export async function fetch_event(title) {
+  try {
+    const Event = client.db('cinemadb').collection('event');
+    const result = Event.findOne({ title: title });
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
+export async function fetch_seat(date, film) {
+  try {
+    const userlogin = client.db('cinemadb').collection('seat');
+    const result = userlogin.find({ date: date, film: film }).toArray();
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
+export async function update_seat(username, seat, date) {
+  try {
+    const seatPlan = client.db('cinemadb').collection('seat');
+    const result = await seatPlan.updateOne(
+      { username: username },
+      { $set: { seat: seat, date: date } },
+      { upsert: true }
+    );
+    //console.log(result.modifiedCount);
+    if (result.modifiedCount == 1) {
+      console.log('Added 0 seatPlan');
+      return true;
+    } else if (result.upsertedCount == 1) {
+      console.log('Added 1 seatPlan');
     }
   } catch (err) {
     console.log('Unable to update the database!');
@@ -202,6 +347,15 @@ export async function fetch_userInfo(username) {
     console.log('Unable to fetch from database!');
   }
 }
+export async function fetch_alluser(username) {
+  try {
+    const userinfo = client.db('cinemadb').collection('users');
+    const result = userinfo.find().toArray();
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
 export async function fetch_nickname(nickname) {
   try {
     const userinfo = client.db('cinemadb').collection('users');
@@ -271,8 +425,15 @@ export default {
   fetch_userInfo,
   update_icon,
   update_profile,
+  insert_seat,
+  fetch_seat,
+  fetch_alluser,
+  update_status,
+  delete_ac,
+  insert_event,
 };
-username_exist('21099757D').then((res) => console.log(res));
+//username_exist('21099757D').then((res) => console.log(res));
+
 //fetch_user('21099757D').then((res) => console.log(res));
 //update_user('21099757D', '21099757D', 'user', false).then((res) => console.log(res));
 //validate_user('alice', 'ecila').then((res) => console.log(res));

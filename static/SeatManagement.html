@@ -9,13 +9,17 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="./js/Confirm.js"></script>
+  <script src="./js/SeatManagement.js"></script>
   <title>Seat Management</title>
   <body>
     <div id="nav-placeholder"></div>
 
+    <embed src="cinemaseat.svg" type="image/svg+xml" id="CinemaSeatMap" width="100%" height="100%"></object>
+      
     <script>
       $(function () {
+        console.log(document.getElementById("CinemaSeatMap").getSVGDocument());
+        document.querySelector('#CinemaSeatMap').getSVGDocument().getElementById('E10').setAttribute('fill', 'red');
         $('#nav-placeholder').load('nav.html');
         $('#index').addClass('link-primary');
         $('#index').addClass('active');

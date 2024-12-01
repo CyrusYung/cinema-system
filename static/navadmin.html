@@ -1,5 +1,5 @@
 <head>
-  <script src="js/nav.js"></script>
+  <script src="js/navadmin.js"></script>
 </head>
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
   <div class="container-fluid bg-dark py-2">
@@ -23,16 +23,22 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav column-gap-2" id="navlink">
         <li class="nav-item p-2">
-          <a class="nav-link" href="./index.html" id="index">Home</a>
+          <a class="nav-link" href="./adminIndex.html" id="index">Home</a>
         </li>
         <li class="nav-item p-2">
-          <a class="nav-link" href="./Login.html" id="login">Login/Register</a>
+          <a class="nav-link" href="./Login.html" id="login">Login/Register(User View)</a>
         </li>
         <li class="nav-item p-2">
-          <a class="nav-link" href="./Film.html" id="film">Films</a>
+          <a class="nav-link" href="./Film.html" id="film">Films(User View)</a>
         </li>
         <li class="nav-item p-2">
-          <a class="nav-link" href="./transaction.html" id="transaction">transaction history</a>
+          <a class="nav-link" href="./transaction.html" id="transaction">transaction history(User View)</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link" href="./AccountManagement.html" id="AccountManagement">Account Management</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link" href="./EventManagement.html" id="EventManagement">Event Management</a>
         </li>
       </ul>
     </div>
@@ -50,23 +56,5 @@
     var currentPageName = getPageName(window.location.pathname);
     console.log(currentPageName);
     $('#' + currentPageName).addClass('link-primary');
-    if (currentPageName == 'Register' || currentPageName == 'login' || currentPageName == 'Film') {
-      $('#login').addClass('link-primary');
-      $('#transaction').addClass('d-none');
-    }
-    if (currentPageName == 'Film') {
-      $('#film').addClass('link-primary');
-    }
-    if (
-      currentPageName == 'index' ||
-      currentPageName == 'profile' ||
-      currentPageName == 'CinemaSeat' ||
-      currentPageName == 'Payment' ||
-      currentPageName == 'Confirm' ||
-      currentPageName == 'transaction' ||
-      currentPageName == 'Film'
-    ) {
-      $('#login').addClass('d-none');
-    }
   });
 </script>
