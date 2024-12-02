@@ -1,3 +1,4 @@
+<!--//Yung Chun Hei 21099757D //Li Man Sing 23030524D-->
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,6 +14,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./js/index.js"></script>
     <title>Event Dashboard</title>
     <style>
       .event-card {
@@ -26,6 +28,22 @@
         display: none; /* Initially hidden */
         margin-top: 15px;
       }
+      .suggestions {
+        position: absolute;
+        z-index: 1000;
+        background: white;
+        border: 1px solid #ddd;
+        max-height: 150px;
+        overflow-y: auto;
+        width: 100%;
+      }
+      .suggestion-item {
+        padding: 10px;
+        cursor: pointer;
+      }
+      .suggestion-item:hover {
+        background-color: #f0f0f0;
+      }
     </style>
   </head>
   <body>
@@ -33,70 +51,72 @@
 
     <div class="container">
       <h1 class="text-center my-4">Event Dashboard</h1>
-      <div class="mb-4">
+      <div class="mb-4 position-relative">
         <input type="text" id="searchInput" class="form-control" placeholder="Search for events..." />
+        <div id="suggestions" class="suggestions" style="display: none"></div>
       </div>
-      <div class="row" id="eventContainer">
-        <!-- Added ID here -->
-        <div class="col-md-6">
-          <div
-            class="card event-card"
-            data-title="Christmas Upcoming"
-            data-description="A fun-filled day of activities and games."
-            data-date="December 1 - December 31">
-            <img src="christmas.png" class="card-img-top" alt="Christmas Event" />
-            <div class="card-body">
-              <h5 class="card-title">Christmas &#x1F973; &#x1F973;</h5>
-              <p class="card-text"><strong>20% off</strong></p>
-              <p class="card-date">Date: December 1 - December 31</p>
-            </div>
-          </div>
-          <div class="event-details">
-            <p>
-              <strong>Description:</strong> To celebrate Christmas, we now provide a 20% off discount for all customers.
-            </p>
-            <p><strong>Date:</strong> December 1 - December 31</p>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div
-            class="card event-card"
-            data-title="Upcoming Film"
-            data-description="An inspirational talk by a renowned speaker."
-            data-date="February 20, 2024">
-            <img src="movie.jpg" class="card-img-top" alt="Upcoming Film" />
-            <div class="card-body">
-              <h5 class="card-title">Upcoming Film</h5>
-              <p class="card-text">Click to know more!</p>
-              <p class="card-date">Date: Upcoming!</p>
-            </div>
-          </div>
-          <div class="event-details">
-            <p>
-              <strong>Description:</strong> Click Films for more detailed information. <strong>(On the top)</strong>
-            </p>
-            <p><strong>Date:</strong> Upcoming</p>
-          </div>
-        </div>
-      </div>
+      <div class="row" id="eventContainer"></div>
     </div>
 
     <script>
       $(function () {
         $('#nav-placeholder').load('nav.html');
         $('#index').addClass('link-primary active semi-bold');
-
         // Toggle event details on card click
         $('.event-card').click(function () {
           $(this).next('.event-details').slideToggle();
         });
 
-        // Search functionality
+        // Event titles for recommendations
+        var eventTitles = [
+          'Christmas',
+          'Upcoming Film',
+          // Add more event titles here as needed
+        ];
+
+        // Search functionality with suggestions
         $('#searchInput').on('keyup', function () {
           var value = $(this).val().toLowerCase();
           $('#eventContainer .col-md-6').filter(function () {
             $(this).toggle($(this).find('.card-title').text().toLowerCase().indexOf(value) > -1);
           });
+
+          // Show suggestions
+          $('#suggestions').empty(); // Clear previous suggestions
+          if (value) {
+            var filteredTitles = eventTitles.filter(function (title) {
+              return title.toLowerCase().includes(value);
+            });
+            if (filteredTitles.length > 0) {
+              filteredTitles.forEach(function (title) {
+                $('#suggestions').append('<div class="suggestion-item">' + title + '</div>');
+              });
+              $('#suggestions').show();
+            } else {
+              $('#suggestions').hide();
+            }
+          } else {
+            $('#suggestions').hide();
+          }
+        });
+
+        // Handle suggestion click
+        $(document).on('click', '.suggestion-item', function () {
+          var selectedTitle = $(this).text(); // Get the title from the clicked suggestion
+          $('#searchInput').val(selectedTitle); // Set the input value
+          $('#suggestions').hide(); // Hide suggestions
+
+          // Filter events based on the selected title
+          $('#eventContainer .col-md-6').filter(function () {
+            $(this).toggle($(this).data('title').toLowerCase().indexOf(selectedTitle.toLowerCase()) > -1);
+          });
+        });
+
+        // Hide suggestions when clicking outside
+        $(document).on('click', function (event) {
+          if (!$(event.target).closest('#searchInput, #suggestions').length) {
+            $('#suggestions').hide();
+          }
         });
       });
     </script>

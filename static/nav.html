@@ -1,3 +1,4 @@
+<!--//Yung Chun Hei 21099757D //Li Man Sing 23030524D-->
 <head>
   <script src="js/nav.js"></script>
 </head>
@@ -50,8 +51,13 @@
     var currentPageName = getPageName(window.location.pathname);
     console.log(currentPageName);
     $('#' + currentPageName).addClass('link-primary');
-    if (currentPageName == 'Register' || currentPageName == 'login' || currentPageName == 'Film') {
-      $('#login').addClass('link-primary');
+    if (
+      currentPageName == 'Register' ||
+      currentPageName == 'login' ||
+      currentPageName == 'Film' ||
+      currentPageName == 'index'
+    ) {
+      //$('#login').addClass('link-primary');
       $('#transaction').addClass('d-none');
     }
     if (currentPageName == 'Film') {

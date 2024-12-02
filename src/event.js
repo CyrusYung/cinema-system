@@ -1,3 +1,5 @@
+//Yung Chun Hei 21099757D
+//Li Man Sing 23030524D
 import express from 'express';
 import multer from 'multer';
 import bcrypt from 'bcrypt';
@@ -17,6 +19,7 @@ import {
   insert_event,
   event_exist,
   update_event,
+  fetch_allevent,
 } from './userdb.js';
 
 var now = new Date();
@@ -38,34 +41,61 @@ var storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+route.get('/all', async (req, res) => {
+  var all = await fetch_allevent();
+  res.json({
+    status: 'success',
+    user: {
+      all: all,
+    },
+  });
+});
+
 route.post('/insert', upload.single('image'), async (req, res) => {
   if (await event_exist(req.body.title)) {
     res.status(400).json({
       status: 'failed',
       message: 'Title ' + req.body.title + ' already exists',
     });
+  } else {
+    var event = await insert_event(
+      req.body.title,
+      req.body.Subtitle,
+      req.body.description,
+      req.body.dateTo,
+      req.body.dateFrom,
+      req.body.venue,
+      {
+        data: req.file,
+        contentType: 'image/png',
+      }
+    );
+    res.json({
+      status: 'success',
+      user: {
+        username: req.session.username,
+        description: req.body.description,
+        date: req.body.date,
+        venue: req.body.venue,
+        image: req.body.image,
+      },
+    });
   }
-  var event = await insert_event(req.body.title, req.body.description, req.body.date, req.body.venue, {
-    data: req.file,
-    contentType: 'image/png',
-  });
-  res.json({
-    status: 'success',
-    user: {
-      username: req.session.username,
-      description: req.body.description,
-      date: req.body.date,
-      venue: req.body.venue,
-      image: req.body.image,
-    },
-  });
 });
 
 route.post('/update', upload.single('image'), async (req, res) => {
-  var event = await update_event(req.body.title, req.body.description, req.body.date, req.body.venue, {
-    data: req.file,
-    contentType: 'image/png',
-  });
+  var event = await update_event(
+    req.body.title,
+    req.body.Newtitle,
+    req.body.description,
+    req.body.dateTo,
+    req.body.dateFrom,
+    req.body.venue,
+    {
+      data: req.file,
+      contentType: 'image/png',
+    }
+  );
   res.json({
     status: 'success',
     user: {

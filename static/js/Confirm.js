@@ -1,3 +1,5 @@
+//Yung Chun Hei 21099757D
+//Li Man Sing 23030524D
 $(function () {
   var SeatString = '';
   const bookinginfo = JSON.parse(localStorage.getItem('bookingtemp'));

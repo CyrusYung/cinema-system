@@ -1,31 +1,125 @@
-<head>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous" />
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script type="text/javascript" src="js/adminIndex.js.js"></script>
-  <title>Homepage</title>
-</head>
+<!--//Yung Chun Hei 21099757D //Li Man Sing 23030524D-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./js/adminIndex.js"></script>
+    <title>Event Dashboard(User View)</title>
+    <style>
+      .event-card {
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .event-card:hover {
+        transform: scale(1.05);
+      }
+      .event-details {
+        display: none; /* Initially hidden */
+        margin-top: 15px;
+      }
+      .suggestions {
+        position: absolute;
+        z-index: 1000;
+        background: white;
+        border: 1px solid #ddd;
+        max-height: 150px;
+        overflow-y: auto;
+        width: 100%;
+      }
+      .suggestion-item {
+        padding: 10px;
+        cursor: pointer;
+      }
+      .suggestion-item:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
 
-<body>
-  <div id="nav-placeholder"></div>
-  <header class="text-center p-3">
-    <h1>Home Page</h1>
-  </header>
-  <h4 id="welcome">Welcome back!</h4>
+    <div class="container">
+      <h1 class="text-center my-4">Event Dashboard(User View)</h1>
+      <div class="mb-4 position-relative">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search for events..." />
+        <div id="suggestions" class="suggestions" style="display: none"></div>
+      </div>
+      <div class="row" id="eventContainer"></div>
+    </div>
 
-  <script>
-    $(function () {
-      $('#nav-placeholder').load('navadmin.html');
-      $('#index').addClass('link-primary');
-      $('#index').addClass('active');
-      $('#index').addClass('semi-bold');
-    });
-  </script>
-</body>
+    <script>
+      $(function () {
+        $('#nav-placeholder').load('navadmin.html');
+        $('#index').addClass('link-primary active semi-bold');
+
+        // Toggle event details on card click
+        $('.event-card').click(function () {
+          $(this).next('.event-details').slideToggle();
+        });
+
+        // Event titles for recommendations
+        var eventTitles = [
+          'Christmas',
+          'Upcoming Film',
+          // Add more event titles here as needed
+        ];
+
+        // Search functionality with suggestions
+        $('#searchInput').on('keyup', function () {
+          var value = $(this).val().toLowerCase();
+          $('#eventContainer .col-md-6').filter(function () {
+            $(this).toggle($(this).find('.card-title').text().toLowerCase().indexOf(value) > -1);
+          });
+
+          // Show suggestions
+          $('#suggestions').empty(); // Clear previous suggestions
+          if (value) {
+            var filteredTitles = eventTitles.filter(function (title) {
+              return title.toLowerCase().includes(value);
+            });
+            if (filteredTitles.length > 0) {
+              filteredTitles.forEach(function (title) {
+                $('#suggestions').append('<div class="suggestion-item">' + title + '</div>');
+              });
+              $('#suggestions').show();
+            } else {
+              $('#suggestions').hide();
+            }
+          } else {
+            $('#suggestions').hide();
+          }
+        });
+
+        // Handle suggestion click
+        $(document).on('click', '.suggestion-item', function () {
+          var selectedTitle = $(this).text(); // Get the title from the clicked suggestion
+          $('#searchInput').val(selectedTitle); // Set the input value
+          $('#suggestions').hide(); // Hide suggestions
+
+          // Filter events based on the selected title
+          $('#eventContainer .col-md-6').filter(function () {
+            $(this).toggle($(this).data('title').toLowerCase().indexOf(selectedTitle.toLowerCase()) > -1);
+          });
+        });
+
+        // Hide suggestions when clicking outside
+        $(document).on('click', function (event) {
+          if (!$(event.target).closest('#searchInput, #suggestions').length) {
+            $('#suggestions').hide();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

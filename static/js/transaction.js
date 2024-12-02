@@ -1,3 +1,5 @@
+//Yung Chun Hei 21099757D
+//Li Man Sing 23030524D
 $(document).ready(async function () {
   $.ajax({
     url: '/pay/history',
@@ -21,7 +23,7 @@ $(document).ready(async function () {
             '</td><td>' +
             ele.bookingDetail.Price +
             '</td><td>' +
-            ele.bookingDetail.Date +
+            ele.bookingDetail.DateofFilm +
             '</td></tr>'
         );
       });

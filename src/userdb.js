@@ -1,3 +1,5 @@
+//Yung Chun Hei 21099757D
+//Li Man Sing 23030524D
 import fs from 'fs';
 import client from './dbclient.js';
 import bcrypt from 'bcrypt';
@@ -88,6 +90,16 @@ export async function fetch_transaction(username) {
     console.log('Unable to fetch from database!');
   }
 }
+export async function fetch_Alltransaction() {
+  try {
+    const transaction = client.db('cinemadb').collection('Payment');
+    const result = transaction.find({}).toArray();
+    //console.log(result.modifiedCount);
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
 
 export async function update_login(username, password, enabled) {
   try {
@@ -161,13 +173,15 @@ export async function insert_seat(username, seat, date, film) {
     console.log('Unable to update the database!');
   }
 }
-export async function insert_event(title, description, date, venue, img) {
+export async function insert_event(title, subtitle, description, dateTo, dateFrom, venue, img) {
   try {
     const Event = client.db('cinemadb').collection('event');
     const result = await Event.insertOne({
       title: title,
+      subtitle: subtitle,
       description: description,
-      date: date,
+      dateTo: dateTo,
+      dateFrom: dateFrom,
       venue: venue,
       img: img,
     });
@@ -182,12 +196,14 @@ export async function insert_event(title, description, date, venue, img) {
     console.log('Unable to update the database!');
   }
 }
-export async function update_event(title, description, date, venue, img) {
+export async function update_event(title, Newtitle, description, dateTo, dateFrom, venue, img) {
   try {
     const Event = client.db('cinemadb').collection('event');
     const result = await Event.updateOne(
       { title: title },
-      { $set: { description: description, date: date, venue: venue, img: img } },
+      {
+        $set: { title: Newtitle, description: description, dateTo: dateTo, dateFrom: dateFrom, venue: venue, img: img },
+      },
       { upsert: true }
     );
     //console.log(result.modifiedCount);
@@ -223,6 +239,15 @@ export async function fetch_event(title) {
     console.log('Unable to fetch from database!');
   }
 }
+export async function fetch_allevent() {
+  try {
+    const Event = client.db('cinemadb').collection('event');
+    const result = Event.find().toArray();
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
 export async function fetch_seat(date, film) {
   try {
     const userlogin = client.db('cinemadb').collection('seat');
@@ -232,6 +257,16 @@ export async function fetch_seat(date, film) {
     console.log('Unable to fetch from database!');
   }
 }
+export async function fetch_ticket(date) {
+  try {
+    const userlogin = client.db('cinemadb').collection('seat');
+    const result = userlogin.find({ date: date }).toArray();
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
+
 export async function update_seat(username, seat, date) {
   try {
     const seatPlan = client.db('cinemadb').collection('seat');
@@ -356,6 +391,16 @@ export async function fetch_alluser(username) {
     console.log('Unable to fetch from database!');
   }
 }
+export async function fetch_seatInfo(date, filmName, seat) {
+  try {
+    const Payment = client.db('cinemadb').collection('Payment');
+    const result = Payment.find({ Seat: seat });
+
+    return result;
+  } catch (err) {
+    console.log('Unable to fetch from database!');
+  }
+}
 export async function fetch_nickname(nickname) {
   try {
     const userinfo = client.db('cinemadb').collection('users');
@@ -431,6 +476,10 @@ export default {
   update_status,
   delete_ac,
   insert_event,
+  update_event,
+  fetch_allevent,
+  fetch_Alltransaction,
+  fetch_seatInfo,
 };
 //username_exist('21099757D').then((res) => console.log(res));
 

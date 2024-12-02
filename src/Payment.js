@@ -1,3 +1,5 @@
+//Yung Chun Hei 21099757D
+//Li Man Sing 23030524D
 import express from 'express';
 import multer from 'multer';
 import bcrypt from 'bcrypt';
@@ -18,6 +20,9 @@ import {
   fetch_transaction,
   insert_seat,
   fetch_seat,
+  fetch_ticket,
+  fetch_Alltransaction,
+  fetch_seatInfo,
 } from './userdb.js';
 
 var route = express();
@@ -37,6 +42,18 @@ route.post('/seat', form.none(), async (req, res) => {
   });
 });
 
+route.get('/ticket', async (req, res) => {
+  const d = new Date();
+  var day = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+  console.log(day);
+  var ticket = await fetch_ticket(day);
+  res.json({
+    status: 'success',
+    seat: {
+      ticket: ticket,
+    },
+  });
+});
 route.post('/confirm', form.none(), async (req, res) => {
   //console.log(req.session.username);
   var bookingDetail = {
@@ -107,4 +124,38 @@ route.get('/history', async (req, res) => {
   }
 });
 
+route.post('/seatInfo', form.none(), async (req, res) => {
+  //console.log(req.session.logged);
+  console.log(req.body.seat);
+  var seatInfo = await fetch_seatInfo(req.body.seat);
+  console.log(seatInfo);
+  //console.log(transaction);
+  res.json({
+    status: 'success',
+    user: {
+      seatInfo: { seatInfo },
+    },
+  });
+});
+
+route.get('/Allhistory', async (req, res) => {
+  //console.log(req.session.logged);
+  console.log(await fetch_Alltransaction(req.session.username));
+  if (req.session.logged) {
+    var transaction = await fetch_Alltransaction(req.session.username);
+    //console.log(transaction);
+    res.json({
+      status: 'success',
+      user: {
+        username: req.session.username,
+        history: transaction,
+      },
+    });
+  } else {
+    res.status(401).json({
+      status: 'failed',
+      message: 'Unauthorized',
+    });
+  }
+});
 export default route;

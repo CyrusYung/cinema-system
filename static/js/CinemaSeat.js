@@ -1,3 +1,5 @@
+//Yung Chun Hei 21099757D
+//Li Man Sing 23030524D
 $(document).ready(function () {
   var SelectedSeatarr = [];
   var Normalseat = 0;
@@ -512,7 +514,7 @@ $(document).ready(function () {
             ticketCount: ticketCount,
             ticketPrice: ticketPrice,
             seatPrice: seatPrice,
-            totalPrice: totalPrice,
+            totalPrice: parseFloat(totalPrice).toFixed(2),
             filmName: filmName,
             Seat: SelectedSeatarr,
             Date: $('#date').val(),
